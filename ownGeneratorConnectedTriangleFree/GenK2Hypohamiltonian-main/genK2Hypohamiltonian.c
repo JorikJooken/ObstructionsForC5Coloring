@@ -1325,23 +1325,24 @@ void addK2Edges(struct graph *g, struct counters *counters, struct options
     }
 }
 
-void addVertex(struct graph* g, int currVertex, int numberOfVertices, int *ctr, struct options *options);
+void addVertex(struct graph* g, int currVertex, int numberOfVertices, int *ctr, struct options *options, struct counters *counters);
 
-void addEdgesInAllPossibleWays(struct graph* g, int currVertex, int numberOfVertices, int *ctr, struct options *options, int otherEndPointAfter, bitset *validEndPoints)
+void addEdgesInAllPossibleWays(struct graph* g, int currVertex, int numberOfVertices, int *ctr, struct options *options, int otherEndPointAfter, bitset *validEndPoints, struct counters *counters)
 {
     bool loop_entered=false;
     forEachAfterIndex(nextEndPoint,*validEndPoints,otherEndPointAfter)
     {
         loop_entered=true;
         // option 1: do not use current edge
-        addEdgesInAllPossibleWays(g,currVertex,numberOfVertices,ctr,options,nextEndPoint,validEndPoints);
+        addEdgesInAllPossibleWays(g,currVertex,numberOfVertices,ctr,options,nextEndPoint,validEndPoints,counters);
         // option 2: do use current edge
         addEdge(g,currVertex,nextEndPoint);
         bitset oldValidEndPoints=(*validEndPoints);
         (*validEndPoints)=intersection(*validEndPoints,compl(g->adjacencyList[nextEndPoint],currVertex)); // graph should be triangle-free
-        addEdgesInAllPossibleWays(g,currVertex,numberOfVertices,ctr,options,nextEndPoint,validEndPoints);
+        addEdgesInAllPossibleWays(g,currVertex,numberOfVertices,ctr,options,nextEndPoint,validEndPoints,counters);
         (*validEndPoints)=oldValidEndPoints;
         removeEdge(g,currVertex,nextEndPoint);
+        break;
     }
     if(!loop_entered)
     {
@@ -1351,6 +1352,7 @@ void addEdgesInAllPossibleWays(struct graph* g, int currVertex, int numberOfVert
             fprintf(stderr, "Error: out of memory\n");
             exit(1);
         }
+        (counters->nOfTimesCheckedIsomorphism)+=1;
         createCanonicalForm(g->nautyGraph, gCan, currVertex+1);
         bool isPresent;
         splay_insert(&splayTreeArray[g->numberOfEdges], gCan, currVertex+1, &isPresent);
@@ -1360,24 +1362,24 @@ void addEdgesInAllPossibleWays(struct graph* g, int currVertex, int numberOfVert
                 writeToG6(g->nautyGraph,numberOfVertices);
                 (*ctr)++;
             }
-            addVertex(g,currVertex+1,numberOfVertices,ctr,options);
+            addVertex(g,currVertex+1,numberOfVertices,ctr,options,counters);
         }
         else free(gCan);
     }
 }
 
-void addVertex(struct graph* g, int currVertex, int numberOfVertices, int *ctr, struct options *options)
+void addVertex(struct graph* g, int currVertex, int numberOfVertices, int *ctr, struct options *options, struct counters *counters)
 {
     //fprintf(stderr,"Path length: %d\n", options->pathLength);
     //fprintf(stderr,"currVertex: %d\n",currVertex);
     if(currVertex==0)
     {
-        addVertex(g,currVertex+1,numberOfVertices,ctr,options);
+        addVertex(g,currVertex+1,numberOfVertices,ctr,options,counters);
         return;
     }
     if(currVertex==numberOfVertices) return;
     bitset validEndPoints=compl(EMPTY,currVertex);
-    addEdgesInAllPossibleWays(g,currVertex,numberOfVertices,ctr,options,-1,&validEndPoints);
+    addEdgesInAllPossibleWays(g,currVertex,numberOfVertices,ctr,options,-1,&validEndPoints,counters);
 
     /*for(int bs=1; bs<(1LL<<currVertex); bs++)
     //for(int bs=3; bs<=3; bs++)
@@ -1474,7 +1476,7 @@ void generateK2HypohamiltonianGraphs(int numberOfVertices,
     //doIt(&g,0);
 
     int ctr=0;
-    addVertex(&g,0,numberOfVertices,&ctr,options);
+    addVertex(&g,0,numberOfVertices,&ctr,options,counters);
     fprintf(stderr,"ctr: %d\n",ctr);
     free(g.adjacencyList);
     free(g.forbiddenEdges);
