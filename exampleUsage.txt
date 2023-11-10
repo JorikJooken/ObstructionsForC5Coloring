@@ -1,0 +1,8 @@
+Use
+
+./generateVertexCriticalGraphsC5Coloring -l8 17 < 30VertexGraph.g6
+
+to generate all vertex-critical obstructions for C5-coloring P8-free graphs on at most 17 vertices.
+The "30vertexGraph.g6" means that this particular graph on 30 vertices cannot occur as an induced subgraph.
+This input argument cannot be empty (so the 30 vertex graph is a placeholder, because it will never occur).
+You can also change it to a more realistic example, e.g. diamond.g6 to consider (P8,diamond)-free graphs.
