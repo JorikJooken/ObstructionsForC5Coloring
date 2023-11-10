@@ -1509,7 +1509,7 @@ void generateKVertexCriticalObstructions(int numberOfVertices,
     //(struct graph* g,  struct similarGraphsList* sgl, int currVertex, int numberOfVertices, int *ctr, struct options *options, int otherEndPointAfter, bitset *validEndPoints, int numberSimilarVertices, struct counters *counters, int poor_vertex, int max_palette_size_G_minus_u)
 
     // make empty graph
-    for(int i=0; i<MAXVERTICES; i++)
+    /*for(int i=0; i<MAXVERTICES; i++)
     {
         pathQueueStart[i]=0;
         pathQueueEnd[i]=-1;
@@ -1517,10 +1517,10 @@ void generateKVertexCriticalObstructions(int numberOfVertices,
     emptyGraph(&g);
     //addVertex(&g,&sgl,2*s+1,numberOfVertices,&ctr,options,counters);
     bitset validEndPoints=0LL;
-    addEdgesInAllPossibleWays(&g,&sgl,0,numberOfVertices,&ctr,options,numberOfVertices,&validEndPoints,0,counters,-2,-2);
+    addEdgesInAllPossibleWays(&g,&sgl,0,numberOfVertices,&ctr,options,numberOfVertices,&validEndPoints,0,counters,-2,-2);*/
 
     // build a C5
-    /*for(int i=0; i<MAXVERTICES; i++)
+    for(int i=0; i<MAXVERTICES; i++)
     {
         pathQueueStart[i]=0;
         pathQueueEnd[i]=-1;
@@ -1532,7 +1532,7 @@ void generateKVertexCriticalObstructions(int numberOfVertices,
     addEdge(&g,3,4);
     addEdge(&g,4,0);
     bitset validEndPoints=0LL;
-    addEdgesInAllPossibleWays(&g,&sgl,4,numberOfVertices,&ctr,options,numberOfVertices,&validEndPoints,0,counters,-2,-2);*/
+    addEdgesInAllPossibleWays(&g,&sgl,4,numberOfVertices,&ctr,options,numberOfVertices,&validEndPoints,0,counters,-2,-2);
 
     fprintf(stderr,"ctr: %d\n",ctr);
     fprintf(stderr,"maxReached: %d\n",maxReached);
