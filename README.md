@@ -1,13 +1,15 @@
 # Vertex-critical obstructions for C5-coloring (P_t,F)-free graphs
 
-This repository contains code for exhaustively generating vertex-critical obstructions for C5-coloring (P_t,F)-free graphs. In fact, it will generate all such obstructions except for the triangle K_3 for efficiency reasons.
+This repository contains code and data related to the exhaustive generation of vertex-critical obstructions for C5-coloring (P_t,F)-free graphs (see the paper "Vertex-critical obstructions for C5-coloring Pt-free graphs"). The two folders "Code" and "Data" are described below.
+
+### CODE
 
 The program can be compiled by using
 ```bash
 make
 ```
 
-The program expects 3 parameters: the number of vertices in the path (t), the maximum order of a vertex-critical obstruction (n) and the graph F.
+The program will generate all vertex-critical obstructions for C5-coloring except for the triangle K_3 for efficiency reasons. The program expects 3 parameters: the number of vertices in the path (t), the maximum order of a vertex-critical obstruction (n) and the graph F.
 
 Below are some examples of how the program can be used:
 ```bash
@@ -46,3 +48,6 @@ There were 0 non-terminating graphs on level 16
 ```
 
 This indicates that the algorithm can guarantee that there are no vertex-critical obstructions with more than 17 vertices and the produced list of vertex-critical obstructions is exhaustive.
+
+### DATA
+Data description here.
