@@ -50,4 +50,11 @@ There were 0 non-terminating graphs on level 16
 This indicates that the algorithm can guarantee that there are no vertex-critical obstructions with more than 17 vertices and the produced list of vertex-critical obstructions is exhaustive.
 
 ### DATA
-Data description here.
+
+### PtFreeGraphs
+
+The files "vertCritObstructionsC5ColoringPtFreeGraphs.g6" contain an exhaustive list of all vertex-critical obstructions for C5-coloring Pt-free graphs. There is such a file for t=6, t=7 and t=8.
+
+### SubdividedClawFreeGraphs
+The files "vertCritObstructionsC5ColoringS_a_b_cFreeGraphs.g6" contain an exhaustive list of all vertex-critical obstructions for C5-coloring a) S_2_2_1-free graphs and b) S_3_1_1-free graphs, where S_a_b_c represents a subdivided claw (e.g. a claw is the graph S_1_1_1).
+
