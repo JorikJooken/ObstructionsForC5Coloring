@@ -1,4 +1,5 @@
-# k-vertex-critical 
+# Vertex-critical obstructions for C5-coloring (P_t,F)-free graphs
+
 This repository contains code for exhaustively generating vertex-critical obstructions for C5-coloring (P_t,F)-free graphs. In fact, it will generate all such obstructions except for the triangle K_3 for efficiency reasons.
 
 The program can be compiled by using
